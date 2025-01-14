@@ -7,6 +7,8 @@
 #include "ECS/Object.h"
 #include "utility/Timer.h"
 
+class Object;
+
 struct Scene {
     virtual ~Scene() = default;
 

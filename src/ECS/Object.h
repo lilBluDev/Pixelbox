@@ -1,10 +1,10 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include <memory>
 #include <typeindex>
 #include <unordered_map>
-#include "core/scene.h"
 #include "ECS/Component.h"
 
 class Scene;
