@@ -7,6 +7,7 @@
 #include "utility/FS.h"
 #include "scenes/default_scene.h"
 #include "renderer/shaderLoader.h"
+#include "renderer/Renderer.h"
 
 class PixelBoxEngine {
 public:
@@ -22,9 +23,10 @@ public:
     WindowManager& getWindowManager();
     FileSystem& getFileSystem();
     Timer& getTimer();
+    Renderer& getRenderer();
 private:
     PixelBoxEngine()
-        : shaderLoader(&fileSystem)
+        : shaderLoader(&fileSystem), renderer()
     {}
     
     PixelBoxEngine(const PixelBoxEngine&) = delete;
@@ -33,5 +35,6 @@ private:
     WindowManager windowManager;
     FileSystem fileSystem;
     ShaderLoader shaderLoader;
+    Renderer renderer;
     Timer timer;
 };

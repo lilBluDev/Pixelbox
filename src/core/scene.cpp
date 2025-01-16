@@ -38,9 +38,9 @@ void SceneManager::updateCurrentScene(Timer timer) {
     }
 }
 
-void SceneManager::renderCurrentScene() {
+void SceneManager::renderCurrentScene(Renderer* renderer) {
     if (currentScene) {
-        currentScene->render();
+        currentScene->render(renderer);
     }
 }
 
