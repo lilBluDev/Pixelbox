@@ -18,6 +18,7 @@ bool PixelBoxEngine::init() {
     std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
     fileSystem.addPrefix("shdr", "assets/shaders/");
     shaderProgram = shaderLoader.loadShader("shdr://default.glsl");
+    renderer.setShaderProgram(shaderProgram);
 
     windowManager.setCurrentScene("PixelBox", "DefaultScene", new DefaultScene());
 
@@ -33,7 +34,7 @@ void PixelBoxEngine::run() {
         windowManager.clearScreen();
         shaderLoader.useShader(shaderProgram);
         windowManager.getCurrentScene("PixelBox")->update(timer);
-        windowManager.getCurrentScene("PixelBox")->render();
+        windowManager.getCurrentScene("PixelBox")->render(&renderer);
         windowManager.updateScreen("PixelBox");
     }
 }

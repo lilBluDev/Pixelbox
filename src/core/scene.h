@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include "ECS/Object.h"
 #include "utility/Timer.h"
+#include "renderer/Renderer.h"
 
 class Object;
 
@@ -15,7 +16,7 @@ struct Scene {
     // Pure virtual functions for scene lifecycle
     virtual void init() = 0;
     virtual void update(Timer timer) = 0;
-    virtual void render() = 0;
+    virtual void render(Renderer* renderer) = 0;
     virtual void cleanup() = 0;
 
     // Object management
@@ -58,7 +59,7 @@ public:
     Scene* getCurrentScene() const;
     Scene* getScene(const std::string& name) const;
     void updateCurrentScene(Timer timer);
-    void renderCurrentScene();
+    void renderCurrentScene(Renderer* renderer);
     void cleanup();
 private:
     std::unordered_map<std::string, Scene*> scenes;
