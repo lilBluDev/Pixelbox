@@ -67,7 +67,7 @@ Scene* WindowManager::getCurrentScene(const std::string& windowName) const {
     return windows.at(windowName).sceneManager.getCurrentScene();
 }
 
-void WindowManager::handleEvents(const std::string& windowName, bool& quit) {
+void WindowManager::handleEvents(const std::string& windowName, bool& quit, Timer timer) {
     SDL_Event e;
     while (SDL_PollEvent(&e) != 0) {
         if (e.type == SDL_QUIT) {
@@ -75,29 +75,50 @@ void WindowManager::handleEvents(const std::string& windowName, bool& quit) {
             windows[windowName].isRunning = false;
         }
 
-        if (e.type == SDL_KEYDOWN) {
-            Window& window = windows[windowName];
-            switch (e.key.keysym.sym) {
-            case SDLK_w:
-                window.sceneManager.getCurrentScene()->getCamera()->position.y += 0.1f;
-                break;
-            
-            case SDLK_s:
-                window.sceneManager.getCurrentScene()->getCamera()->position.y -= 0.1f;
-                break;
-            
-            case SDLK_a:
-                window.sceneManager.getCurrentScene()->getCamera()->position.x -= 0.1f;
-                break;
+        Window& window = windows[windowName];
+        auto* currentScene = window.sceneManager.getCurrentScene();
 
-            case SDLK_d:
-                window.sceneManager.getCurrentScene()->getCamera()->position.x += 0.1f;
-                break;
-            
-            default:
-                break;
-            }
+        if (!currentScene) {
+            continue;
         }
+
+        // Handle keyboard events
+        if (e.type == SDL_KEYDOWN || e.type == SDL_KEYUP) {
+            bool isPressed = (e.type == SDL_KEYDOWN);
+            KeyInputEvent keyEvent(e.key.keysym.sym, isPressed);
+            currentScene->handleInputEvent(keyEvent, timer);
+        }
+
+        // Handle mouse button events
+        if (e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP) {
+            bool isPressed = (e.type == SDL_MOUSEBUTTONDOWN);
+            MouseInputEvent mouseEvent(e.button.x, e.button.y, e.button.button, isPressed);
+            currentScene->handleInputEvent(mouseEvent, timer);
+        }
+
+        // if (e.type == SDL_KEYDOWN) {
+        //     Window& window = windows[windowName];
+        //     switch (e.key.keysym.sym) {
+        //     case SDLK_w:
+        //         window.sceneManager.getCurrentScene()->getCamera()->position.y += 0.1f;
+        //         break;
+            
+        //     case SDLK_s:
+        //         window.sceneManager.getCurrentScene()->getCamera()->position.y -= 0.1f;
+        //         break;
+            
+        //     case SDLK_a:
+        //         window.sceneManager.getCurrentScene()->getCamera()->position.x -= 0.1f;
+        //         break;
+
+        //     case SDLK_d:
+        //         window.sceneManager.getCurrentScene()->getCamera()->position.x += 0.1f;
+        //         break;
+            
+        //     default:
+        //         break;
+        //     }
+        // }
     }
 }
 

@@ -43,20 +43,11 @@ glm::mat4 Camera::getProjectionMatrix() const {
 }
 
 glm::mat4 Camera::getViewMatrix() const {
-    glm::mat4 view = glm::mat4(1.0f); // Start with identity matrix
-
-    std::cout << "Position: " << position.x << ", " << position.y << std::endl;
-    std::cout << "Rotation: " << rotation << std::endl;
-    std::cout << "Zoom: " << zoom << std::endl;
-    // Apply translation (move world opposite to camera position)
+    glm::mat4 view = glm::mat4(1.0f); 
+    
     view = glm::translate(view, glm::vec3(-position, 0.0f));
-
-    // Apply rotation around Z-axis (if the camera rotates)
     view = glm::rotate(view, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
-
-    // Apply scaling (zoom in or out)
     view = glm::scale(view, glm::vec3(zoom, zoom, 1.0f));
-
 
     return view;
 }

@@ -4,6 +4,7 @@
 #include <unordered_map>
 
 SceneManager::SceneManager() : scenes(), currentScene(nullptr) {}
+// Scene::~Scene() = default;
 
 void SceneManager::addScene(const std::string& name, Scene* scene) {
     scenes[name] = scene;

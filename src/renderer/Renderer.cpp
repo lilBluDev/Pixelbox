@@ -48,34 +48,9 @@ void Renderer::render() {
 }
 
 void Renderer::renderView(const Camera& camera) {
-    if (shaderProgram == 0)
-    {
-        std::cout << "Invalid shader program! " << shaderProgram << std::endl;
-    }
-
-    std::cout << "====== CAMERA ======" << std::endl;
-
-    glm::mat4 viewMatrix = camera.getViewMatrix();
-    std::cout << glm::to_string(viewMatrix) << std::endl;
-
-    
-
-
-    std::cout << "===================" << std::endl;
-
-    std::cout << "Calculating camera.." << std::endl;
     GLuint viewLoc = glGetUniformLocation(shaderProgram, "u_view");
-    if(viewLoc == -1)
-    {
-        std::cout << "Invalid view  loc!" << std::endl;
-    }
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &camera.getViewMatrix()[0][0]);
 
-
     GLuint projLoc = glGetUniformLocation(shaderProgram, "u_projection");
-    if(projLoc == -1)
-    {
-        std::cout << "Invalid proj loc!" << std::endl;
-    }
     glUniformMatrix4fv(projLoc, 1, GL_FALSE, &camera.getProjectionMatrix()[0][0]);
 }
