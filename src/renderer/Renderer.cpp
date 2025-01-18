@@ -1,6 +1,10 @@
 #include "renderer/Renderer.h"
 
+#define GLM_ENABLE_EXPERIMENTAL
+
+#include <iostream>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 Renderer::Renderer() {}
 
@@ -41,4 +45,12 @@ void Renderer::setupBuffer(const std::vector<float>& vertices) {
 void Renderer::render() {
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);
+}
+
+void Renderer::renderView(const Camera& camera) {
+    GLuint viewLoc = glGetUniformLocation(shaderProgram, "u_view");
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &camera.getViewMatrix()[0][0]);
+
+    GLuint projLoc = glGetUniformLocation(shaderProgram, "u_projection");
+    glUniformMatrix4fv(projLoc, 1, GL_FALSE, &camera.getProjectionMatrix()[0][0]);
 }
