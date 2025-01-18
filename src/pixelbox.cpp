@@ -34,6 +34,7 @@ void PixelBoxEngine::run() {
         windowManager.clearScreen();
         shaderLoader.useShader(shaderProgram);
         windowManager.getCurrentScene("PixelBox")->update(timer);
+        renderer.renderView(*windowManager.getCurrentScene("PixelBox")->getCamera());
         windowManager.getCurrentScene("PixelBox")->render(&renderer);
         windowManager.updateScreen("PixelBox");
     }

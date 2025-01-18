@@ -15,6 +15,8 @@ public:
     ~DefaultScene() = default;
 
     void init() override {
+        
+
         std::vector<float> triangleVertices = {
             0.0f,  0.5f, 0.0f, // Top
             -0.5f, -0.5f, 0.0f, // Bottom left
@@ -23,7 +25,9 @@ public:
 
         Object* tri = createObject("tri");
         tri->addComponent<Obj>(triangleVertices);
-        tri->getComponent<Obj>()->renObj.setScale(glm::vec3(0.5f, 0.5f, 0.5f));
+        tri->getComponent<Obj>()->renObj.setScale(glm::vec3(500.0f, 500.0f, 500.0f));
+        
+        getCamera()->setPosition(glm::vec3(-0.5f, 0.5f, 0.0f));
         std::cout << "Default scene initialized!" << std::endl;
     }
 
@@ -34,6 +38,7 @@ public:
     }
 
     void render(Renderer* renderer) override {
+        getCamera()->setZoom(0.5f);
         for (const auto& object : getObjects()) {
             if (object->hasComponent<Obj>()) {
                 renderer->addObject(&object->getComponent<Obj>()->renObj);

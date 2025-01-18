@@ -1,4 +1,5 @@
 #include "core/window.h"
+#include "SDL2/SDL.h"
 #include <iostream>
 #include "core/scene.h"
 
@@ -72,6 +73,30 @@ void WindowManager::handleEvents(const std::string& windowName, bool& quit) {
         if (e.type == SDL_QUIT) {
             quit = true;
             windows[windowName].isRunning = false;
+        }
+
+        if (e.type == SDL_KEYDOWN) {
+            Window& window = windows[windowName];
+            switch (e.key.keysym.sym) {
+            case SDLK_w:
+                window.sceneManager.getCurrentScene()->getCamera()->position.y += 0.1f;
+                break;
+            
+            case SDLK_s:
+                window.sceneManager.getCurrentScene()->getCamera()->position.y -= 0.1f;
+                break;
+            
+            case SDLK_a:
+                window.sceneManager.getCurrentScene()->getCamera()->position.x -= 0.1f;
+                break;
+
+            case SDLK_d:
+                window.sceneManager.getCurrentScene()->getCamera()->position.x += 0.1f;
+                break;
+            
+            default:
+                break;
+            }
         }
     }
 }

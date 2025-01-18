@@ -7,10 +7,12 @@
 #include "ECS/Object.h"
 #include "utility/Timer.h"
 #include "renderer/Renderer.h"
+#include "renderer/Camera.h"
 
 class Object;
 
 struct Scene {
+    Scene() = default;
     virtual ~Scene() = default;
 
     // Pure virtual functions for scene lifecycle
@@ -44,9 +46,19 @@ struct Scene {
         return objects;
     }
 
+    // void setCamera(Camera& newCamera) {
+    //     camera = newCamera;
+    // };
+    Camera* getCamera() {
+        return &camera;
+    };
+
 protected:
+    
+
     std::vector<std::unique_ptr<Object>> objects; // List of all objects
     std::unordered_map<std::string, Object*> objectMap; // Map for name-based access
+    Camera camera;
 };
 
 class SceneManager {
