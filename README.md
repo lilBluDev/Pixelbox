@@ -2,7 +2,7 @@
 PixelBox Game Engine
 </h1>
 
-A simple easy to use game engine used to make 2D games similar to 2D pixel art games like Pokemon or Super Mario, basicly RPGMaker style engine.
+A simple easy to use game engine used to make 2D games similar to 2D pixel art games like Pokemon or Super Mario, basicly RPGMaker style engine. and also my first game engine project!
 
 ### Project Timeline
 
